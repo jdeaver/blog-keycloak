@@ -14,6 +14,7 @@ class Secured extends Component {
     const keycloak = Keycloak('/keycloak.json');
     keycloak.init({onLoad: 'login-required'}).then(authenticated => {
       this.setState({ keycloak: keycloak, authenticated: authenticated })
+      
     })
   }
 
@@ -27,6 +28,7 @@ class Secured extends Component {
           </p>
           <UserInfo keycloak={this.state.keycloak} />
           <Logout keycloak={this.state.keycloak} />
+
         </div>
       ); else return (<div>Unable to authenticate!</div>)
     }

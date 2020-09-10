@@ -7,11 +7,15 @@ class UserInfo extends Component {
     this.state = {
       name: "",
       email: "",
-      id: ""
+      id: "",
+      accessClassified: ""
     };
+    
     this.props.keycloak.loadUserInfo().then(userInfo => {
-        this.setState({name: userInfo.name, email: userInfo.email, id: userInfo.sub})
+        this.setState({name: userInfo.name, email: userInfo.email, id: userInfo.sub, accessClassified: this.props.keycloak.hasRealmRole('UNCLASSIFIED//FOR OFFICIAL USE ONLY')})
     });
+
+
   }
 
   render() {
@@ -20,6 +24,7 @@ class UserInfo extends Component {
         <p>Name: {this.state.name}</p>
         <p>Email: {this.state.email}</p>
         <p>ID: {this.state.id}</p>
+        <p>Can Access Classified: { String(this.state.accessClassified)}</p>
       </div>
     );
   }
